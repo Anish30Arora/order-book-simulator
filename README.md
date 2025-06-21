@@ -10,7 +10,6 @@ It matches buy and sell orders using price-time priority, simulating a simplifie
 - **Backend:** Python, Flask, Flask-SocketIO
 - **Frontend:** HTML, JavaScript, CSS
 - **Data Structures:** Max Heap / Min Heap (via `heapq`) for efficient order matching
-- **Deployment Ready:** Render / Heroku compatible (`Procfile`, `requirements.txt`)
 
 ---
 
