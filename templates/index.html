@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Book Simulator</title>
+  <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+</head>
+<link rel="stylesheet" href="/static/style.css">
+<body>
+  <h2>Order Book Simulator</h2>
+  <form id="order-form">
+    Side: 
+    <select id="side">
+      <option value="buy">Buy</option>
+      <option value="sell">Sell</option>
+    </select>
+    Price: <input type="number" id="price" required>
+    Quantity: <input type="number" id="quantity" required>
+    <button type="submit">Place Order</button>
+  </form>
+
+  <h3>Order Book</h3>
+  <h4>Buy Orders</h4>
+<table border="1" id="buy-orders"></table>
+
+<h4>Sell Orders</h4>
+<table border="1" id="sell-orders"></table>
+
+
+  <h3>Recent Trades</h3>
+  <ul id="trades"></ul>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>

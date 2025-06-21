@@ -1,0 +1,16 @@
+body {
+  font-family: Arial;
+  padding: 20px;
+}
+h2, h3 {
+  margin-top: 20px;
+}
+table {
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 50%;
+}
+th, td {
+  padding: 8px;
+  text-align: center;
+}
