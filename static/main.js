@@ -1,5 +1,6 @@
 const socket = io();
 
+// Submit Order
 document.getElementById('order-form').addEventListener('submit', function(e) {
   e.preventDefault();
   const side = document.getElementById('side').value;
@@ -8,10 +9,11 @@ document.getElementById('order-form').addEventListener('submit', function(e) {
   socket.emit('place_order', { side, price, quantity });
 });
 
+// Order Book Updates
 socket.on('order_book', (data) => {
   const buyTable = document.getElementById('buy-orders');
   const sellTable = document.getElementById('sell-orders');
-  
+
   buyTable.innerHTML = `<tr><th>Price</th><th>Quantity</th></tr>`;
   sellTable.innerHTML = `<tr><th>Price</th><th>Quantity</th></tr>`;
 
@@ -22,9 +24,11 @@ socket.on('order_book', (data) => {
   data.sell.forEach(order => {
     sellTable.innerHTML += `<tr><td>${order.price}</td><td>${order.quantity}</td></tr>`;
   });
+
+  updateChart(data.buy, data.sell); // Update chart here
 });
 
-
+// Recent Trades
 socket.on('trades', (data) => {
   const tradeList = document.getElementById('trades');
   tradeList.innerHTML = '';
@@ -34,3 +38,57 @@ socket.on('trades', (data) => {
     tradeList.appendChild(li);
   });
 });
+
+// Chart.js Setup
+let orderChart;
+
+function updateChart(buyOrders, sellOrders) {
+  const buyData = buyOrders.map(order => ({ x: parseFloat(order.price), y: parseInt(order.quantity) }));
+  const sellData = sellOrders.map(order => ({ x: parseFloat(order.price), y: parseInt(order.quantity) }));
+
+  if (!orderChart) {
+    const ctx = document.getElementById('orderChart').getContext('2d');
+    orderChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        datasets: [
+          {
+            label: 'Buy Orders',
+            data: buyData,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)'
+          },
+          {
+            label: 'Sell Orders',
+            data: sellData,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)'
+          }
+        ]
+      },
+      options: {
+        parsing: {
+          xAxisKey: 'x',
+          yAxisKey: 'y'
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Price'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Quantity'
+            }
+          }
+        }
+      }
+    });
+  } else {
+    orderChart.data.datasets[0].data = buyData;
+    orderChart.data.datasets[1].data = sellData;
+    orderChart.update();
+  }
+}
