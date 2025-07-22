@@ -17,7 +17,7 @@ This project simulates the matching of buy and sell orders using **price-time pr
 
 ## 📸 Screenshot
 
-![Order Book Demo](image1.png)
+![Order Book Demo](image3.png)
 ![Order Book Chart](image2.png)
 
 ---
