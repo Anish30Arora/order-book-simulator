@@ -42,18 +42,12 @@ This gives an intuitive snapshot of market depth and sentiment.
 ## 🚀 Local Setup Instructions
 
 ```bash
-# Clone the repository
+
 git clone https://github.com/Anish30Arora/order-book-simulator.git
 cd order-book-simulator
-
-# Create and activate a virtual environment
 python3 -m venv ordbookvirt
-source ordbookvirt/bin/activate  # On Windows: ordbookvirt\Scripts\activate
-
-# Install required Python packages
+source ordbookvirt/bin/activate 
 pip install -r requirements.txt
-
-# Start the Flask server
 python app.py
 
 
