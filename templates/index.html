@@ -3,32 +3,48 @@
 <head>
   <title>Order Book Simulator</title>
   <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
-<link rel="stylesheet" href="/static/style.css">
 <body>
-  <h2>Order Book Simulator</h2>
-  <form id="order-form">
-    Side: 
-    <select id="side">
-      <option value="buy">Buy</option>
-      <option value="sell">Sell</option>
-    </select>
-    Price: <input type="number" id="price" required>
-    Quantity: <input type="number" id="quantity" required>
-    <button type="submit">Place Order</button>
-  </form>
+  <div class="container">
+    <h1 class="title">Order Book Simulator</h1>
+    
+    <form id="order-form">
+      <select id="side">
+        <option value="buy">Buy</option>
+        <option value="sell">Sell</option>
+      </select>
+      <input type="number" id="price" placeholder="Price" required>
+      <input type="number" id="quantity" placeholder="Quantity" required>
+      <button type="submit">Place Order</button>
+    </form>
 
-  <h3>Order Book</h3>
-  <h4>Buy Orders</h4>
-<table border="1" id="buy-orders"></table>
+    <div class="tables">
+      <div class="table-container">
+        <h3>Buy Orders</h3>
+        <table id="buy-orders" class="order-table"></table>
+      </div>
+      <div class="table-container">
+        <h3>Sell Orders</h3>
+        <table id="sell-orders" class="order-table"></table>
+      </div>
+    </div>
 
-<h4>Sell Orders</h4>
-<table border="1" id="sell-orders"></table>
+    <div class="chart-container">
+      <h3>Live Order Book Chart</h3>
+      <canvas id="orderChart"></canvas>
+    </div>
 
+    <div class="trade-log">
+      <h3>Trade Matches</h3>
+      <ul id="trades"></ul>
+    </div>
+  </div>
 
-  <h3>Recent Trades</h3>
-  <ul id="trades"></ul>
-
-  <script src="/static/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
+
 </html>
